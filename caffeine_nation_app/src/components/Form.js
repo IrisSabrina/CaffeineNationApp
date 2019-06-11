@@ -51,7 +51,7 @@ class Form extends Component {
           />
           <input
             type="text"
-            placeholder="location"
+            placeholder="city"
             onChange={this.handleChange}
             value={this.state.location}
             id="location"
