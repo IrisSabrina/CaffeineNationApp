@@ -14,6 +14,9 @@ class ShopList extends Component {
             <Shop
             key={index}
             shop={shop}
+            handleDelete={this.props.handleDelete}
+            arrayIndex={index}
+            handleCheck={this.props.handleCheck}
             />
           )
         })}

@@ -21,6 +21,8 @@ class App extends Component {
       this.updateArray = this.updateArray.bind(this);
       this.handleCreateShop = this.handleCreateShop.bind(this);
       this.handleView = this.handleView.bind(this);
+      this.handleDelete = this.handleDelete.bind(this);
+      this.removeFromArray = this.removeFromArray.bind(this);
   }
 
   ///////////////
@@ -51,6 +53,31 @@ class App extends Component {
     this.setState( prevState => {
       // prevState['shopList']
       prevState[array].push(shop)
+      return {
+        [array]: prevState[array]
+      }
+    })
+  }
+
+  handleCheck(shop, arrayIndex){
+    console.log('this is handle check', shop, arrayIndex);
+  }
+
+  handleDelete(shopId, arrayIndex){
+    console.log('this is delete', shopId, arrayIndex)
+    fetch(`https://dry-dawn-74348.herokuapp.com/shops/${shopId}`, {
+      method: 'DELETE'
+    })
+    .then(data => {
+      this.removeFromArray('shopsArray', arrayIndex)
+    }).catch( err => console.log('this is error from handleDelete', err))
+  }
+
+  removeFromArray(array, arrayIndex){
+    console.log('this is array', array, arrayIndex);
+    this.setState(prevState => {
+      console.log('this is prevState array', prevState[array]);
+      prevState[array].splice(arrayIndex, 1)
       return {
         [array]: prevState[array]
       }
@@ -106,6 +133,8 @@ class App extends Component {
       <ShopList
         currentView={this.state.shoplist}
         shopsArray={this.state.shopsArray}
+        handleDelete={this.handleDelete}
+        handleCheck={this.handleCheck}
       />
       </div>
     )
