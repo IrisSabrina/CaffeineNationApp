@@ -28,6 +28,7 @@ class App extends Component {
   ///////////////
 
   handleCreateShop(shop) {
+    console.log(shop);
   fetch('https://dry-dawn-74348.herokuapp.com/shops', {
     body:JSON.stringify(shop),
     method: 'POST',
@@ -37,6 +38,7 @@ class App extends Component {
     }
   }).then( createdShop => createdShop.json()) //.json() is parsing JSON.parse()
     .then( jData => {
+      console.log(jData);
       this.updateArray(jData, 'shopsArray')
       this.handleView('shopList')
     })

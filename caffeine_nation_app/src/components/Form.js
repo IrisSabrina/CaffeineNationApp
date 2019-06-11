@@ -7,7 +7,8 @@ class Form extends Component {
   constructor(props) {
     super(props)
       this.state = {
-        shopListItem: ''
+        name: '',
+        location: ''
       }
   }
 
@@ -18,7 +19,7 @@ class Form extends Component {
   handleChange = (event) => {
     // console.log('inside handle change');
     this.setState({
-      shopListItem: event.target.value
+      [event.target.id]: event.target.value
     })
   }
 
@@ -30,7 +31,7 @@ class Form extends Component {
 
   clearForm = () => {
     this.setState({
-      shopListItem: ''
+      name: ''
     })
   }
 
@@ -39,19 +40,32 @@ class Form extends Component {
   ///////////////
   render() {
     return (
-      <div
-        onSubmit={this.handleSubmit}
-      >
-        <form>
+      <div className="form">
+        <form onSubmit={this.handleSubmit}>
           <input
             type="text"
             placeholder="coffee shop name"
             onChange={this.handleChange}
-            value={this.state.shopListItem}
+            value={this.state.name}
+            id="name"
+          />
+          <input
+            type="text"
+            placeholder="location"
+            onChange={this.handleChange}
+            value={this.state.location}
+            id="location"
+          />
+          <input
+            type="text"
+            placeholder="specialty drink name"
+            onChange={this.handleChange}
+            value={this.state.drink}
+            id="drink"
           />
           <button
             type="submit">
-            Click
+            Submit a New Shop!
           </button>
         </form>
       </div>

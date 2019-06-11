@@ -8,7 +8,7 @@ class ShopList extends Component {
   render() {
     return (
       <div className="shop-list">
-        <h2>Current Best of Coffee Shops </h2>
+        <h1>Hit up these places when you're in town!</h1>
         {this.props.shopsArray.map((shop, index) => {
           return(
             <Shop
