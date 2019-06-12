@@ -9,7 +9,8 @@ class Form extends Component {
       this.state = {
         name: '',
         location: '',
-        drink: ''
+        drink: '',
+        liked: true
       }
   }
 

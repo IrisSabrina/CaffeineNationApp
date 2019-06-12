@@ -23,6 +23,7 @@ class App extends Component {
       this.handleView = this.handleView.bind(this);
       this.handleDelete = this.handleDelete.bind(this);
       this.removeFromArray = this.removeFromArray.bind(this);
+      this.handleCheck = this.handleCheck.bind(this);
   }
 
   ///////////////
@@ -31,6 +32,7 @@ class App extends Component {
 
   handleCreateShop(shop) {
     console.log(shop);
+
   fetch('https://dry-dawn-74348.herokuapp.com/shops', {
     body:JSON.stringify(shop),
     method: 'POST',
@@ -38,7 +40,9 @@ class App extends Component {
       'Accept': 'application/json, text/plain, */*',
       'Content-Type': 'application/json'
     }
-  }).then( createdShop => createdShop.json()) //.json() is parsing JSON.parse()
+  }).then( createdShop => {
+    console.log(createdShop);
+    return createdShop.json()}) //.json() is parsing JSON.parse()
     .then( jData => {
       console.log(jData);
       this.updateArray(jData, 'shopsArray')
@@ -60,7 +64,21 @@ class App extends Component {
   }
 
   handleCheck(shop, arrayIndex){
-    console.log('this is handle check', shop, arrayIndex);
+    shop.liked = !shop.liked
+    fetch('https://dry-dawn-74348.herokuapp.com/shops/' + shop.id, {
+      body:JSON.stringify(shop),
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(updatedShop => updatedShop.json())
+    .then(jData => {
+      // this.updateArray(jData, 'shopsArray')
+      this.fetchList()
+      this.handleView('shopList')
+        })
   }
 
   handleDelete(shopId, arrayIndex){
